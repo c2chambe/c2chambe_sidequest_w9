@@ -76,7 +76,8 @@ let devMenu = {
   w: VIEWW * (2 / 3),
   h: VIEWH * (2 / 3),
   opacity: 0.7,
-  text: "toggle moon gravity",
+  text: "toggle moon gravity: Press 2",
+  enabled: false,
 };
 
 function preload() {
@@ -234,7 +235,31 @@ function draw() {
     }
   }
 
+  /*if (!devMenu?.enabled && window.gamePaused) {
+    window.gamePaused = false;
+  }
+*/
   if (kb.presses("m") || kb.presses("M")) {
+    //drawDevMenu();
+    window.gamePaused = true;
+  } else if (kb.presses("Escape")) {
+    window.gamePaused = false;
+  }
+
+  if (kb.presses("2") && window.gamePaused === true) {
+    if (GRAVITY === 6) {
+      GRAVITY = 10;
+    } else {
+      GRAVITY = 6;
+    }
+    world.gravity.y = GRAVITY;
+  }
+
+  if (window.gamePaused === true) {
+    player.vel.x = 0;
+    player.vel.y = 0;
+    player.ani = "idle";
+
     drawDevMenu();
   }
 
@@ -246,8 +271,8 @@ function drawDevMenu() {
   rectMode(CENTER, CENTER);
   fill(devMenu.colour);
   rect(devMenu.x, devMenu.y, devMenu.w, devMenu.h);
-  textSize(40);
-  stroke("white");
-  text(devMenu.x, devMenu.y / 2, devMenu.title);
-  text(devMenu.x, devMenu.y, devMenu.text);
+  textSize(12);
+  fill("white");
+  text(devMenu.title, devMenu.x * 0.35, devMenu.y * 0.5);
+  text(devMenu.text, devMenu.x * 0.35, devMenu.y * 0.7);
 }

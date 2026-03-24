@@ -63,7 +63,21 @@ const FRAME_W = 32,
 const MAP_START_Y = VIEWH - TILE_H * 4;
 
 // gravity
-const GRAVITY = 10;
+let GRAVITY = 10;
+
+//let devMenuCheck = false;
+
+let devMenu = {
+  title: "Dev Menu",
+  check: false,
+  colour: "black",
+  x: VIEWW / 2,
+  y: VIEWH / 2,
+  w: VIEWW * (2 / 3),
+  h: VIEWH * (2 / 3),
+  opacity: 0.7,
+  text: "toggle moon gravity",
+};
 
 function preload() {
   // --- IMAGES ---
@@ -171,6 +185,7 @@ function draw() {
   imageMode(CORNER);
   image(bgImg, 0, 0, bgImg.width, bgImg.height);
   camera.on();
+  keyPressed();
 
   // --- PLAYER CONTROLS ---
   // first check to see if the player is on the ground
@@ -219,6 +234,20 @@ function draw() {
     }
   }
 
+  if (kb.presses("m") || kb.presses("M")) {
+    drawDevMenu();
+  }
+
   // --- KEEP IN VIEW ---
   player.pos.x = constrain(player.pos.x, FRAME_W / 2, VIEWW - FRAME_W / 2);
+}
+
+function drawDevMenu() {
+  rectMode(CENTER, CENTER);
+  fill(devMenu.colour);
+  rect(devMenu.x, devMenu.y, devMenu.w, devMenu.h);
+  textSize(40);
+  stroke("white");
+  text(devMenu.x, devMenu.y / 2, devMenu.title);
+  text(devMenu.x, devMenu.y, devMenu.text);
 }

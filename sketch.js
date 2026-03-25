@@ -94,8 +94,8 @@ function preload() {
 
   // --- SOUND ---
   if (typeof loadSound === "function") {
-    jumpSfx = loadSound("../../assets/sfx/jump.wav");
-    musicSfx = loadSound("../../assets/sfx/music.wav");
+    jumpSfx = loadSound("assets/sfx/jump.wav");
+    musicSfx = loadSound("assets/sfx/music.wav");
   }
 }
 

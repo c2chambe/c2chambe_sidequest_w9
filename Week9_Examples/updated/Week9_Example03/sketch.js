@@ -71,7 +71,7 @@ let grounded = 0;
 //let devMenuCheck = false;
 
 let devMenu = {
-  title: "Dev Menu",
+  title: "Dev Menu :)",
   check: false,
   colour: "black",
   x: VIEWW / 2,
@@ -329,8 +329,8 @@ function draw() {
     textSize(12);
     fill("white");
     text(devMenu.title, devMenu.x * 0.35, devMenu.y * 0.5);
-    text(devMenu.text, devMenu.x * 0.35, devMenu.y * 0.7);
-    text("freeroam: press 1", devMenu.x * 0.35, devMenu.y * 0.9);
-    text("Press 'Escape' to exit menu", devMenu.x * 0.35, devMenu.y);
+    text(devMenu.text, devMenu.x * 0.35, devMenu.y * 0.9);
+    text("freeroam: press 1", devMenu.x * 0.35, devMenu.y * 0.7);
+    text("Press 'Escape' to exit menu", devMenu.x * 0.35, devMenu.y * 1.1);
   }
 }

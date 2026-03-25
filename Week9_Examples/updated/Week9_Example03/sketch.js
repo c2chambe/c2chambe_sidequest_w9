@@ -65,6 +65,9 @@ const MAP_START_Y = VIEWH - TILE_H * 4;
 // gravity
 let GRAVITY = 10;
 
+//grounded varible
+let grounded = 0;
+
 //let devMenuCheck = false;
 
 let devMenu = {
@@ -192,7 +195,13 @@ function draw() {
 
   // --- PLAYER CONTROLS ---
   // first check to see if the player is on the ground
-  let grounded = sensor.overlapping(ground);
+
+  if (freeRoam === false) {
+    grounded = sensor.overlapping(ground);
+  } else {
+    //grounded = ;
+    console.log("floating");
+  }
 
   // -- ATTACK INPUT --
   if (grounded && !attacking && kb.presses("space")) {
@@ -267,54 +276,61 @@ function draw() {
 
   if (window.gamePaused === true && kb.presses("1")) {
     freeRoam = true;
-    if (GRAVITY === 6 || GRAVITY === 10) {
-      GRAVITY = 0;
-
-      if (kb.pressing("left")) {
-        // player.vel.x = -1.5;
-        player.pos.x = player.pos.x - 1;
-        player.mirror.x = true;
-        console.log("left");
-      } else if (kb.pressing("right")) {
-        //  player.vel.x = 1.5;
-        player.mirror.x = false;
-        console.log("right");
-        player.pos.x = player.pos.x + 1;
-      } else if (kb.pressing("up")) {
-        player.pos.y = player.pos.y - 0.5;
-        //  player.vel.y = 0;
-        console.log("up");
-        player.mirror.y = true;
-      } else if (kb.pressing("down")) {
-        player.pos.y = player.pos.y + 0.5;
-        player.mirror.y = false;
-        //player.vel.y = -1.;
-        console.log("down");
-      } else {
-        player.ani =
-          kb.pressing("left") || kb.pressing("right") ? "run" : "idle";
-        player.vel.y = 0;
-        player.vel.x = 0;
-      }
-    } else {
-      GRAVITY = GRAVITY;
-      window.gamePaused = false;
-    }
-    world.gravity.y = GRAVITY;
+  } else if (kb.presses("Escape")) {
+    window.gamePaused = false;
   }
 
-  // --- KEEP IN VIEW ---
-  player.pos.x = constrain(player.pos.x, FRAME_W / 2, VIEWW - FRAME_W / 2);
-}
+  if (freeRoam === true) {
+    if (GRAVITY === 6 || GRAVITY === 10) {
+      GRAVITY = 0;
+    } else {
+      GRAVITY = GRAVITY;
+    }
+    world.gravity.y = GRAVITY;
 
-function drawDevMenu() {
-  rectMode(CENTER, CENTER);
-  fill(devMenu.colour);
-  rect(devMenu.x, devMenu.y, devMenu.w, devMenu.h);
-  textSize(12);
-  fill("white");
-  text(devMenu.title, devMenu.x * 0.35, devMenu.y * 0.5);
-  text(devMenu.text, devMenu.x * 0.35, devMenu.y * 0.7);
-  text("freeroam: press 1", devMenu.x * 0.35, devMenu.y * 0.9);
-  text("Press 'Escape' to exit menu", devMenu.x * 0.35, devMenu.y);
+    player.vel.x = 0;
+    player.vel.y = 0;
+
+    if (kb.pressing("left")) {
+      player.x = player.x - 1;
+      player.mirror.x = true;
+      // console.log("left");
+    }
+    if (kb.pressing("right")) {
+      //player.vel.x = 0;
+      player.mirror.x = false;
+      //console.log("right");
+      player.x = player.x + 1;
+    }
+    if (kb.pressing("up")) {
+      player.y = player.y - 1;
+      // player.vel.y = 0;
+      //console.log("up");
+      //player.mirror.y = false;
+    }
+    if (kb.pressing("down")) {
+      player.y = player.y + 1;
+      // player.mirror.y = false;
+      // player.vel.y = 0;
+      // console.log("down");
+    }
+
+    // --- KEEP IN VIEW ---
+    player.pos.x = constrain(player.pos.x, FRAME_W / 2, VIEWW - FRAME_W / 2);
+    //player.pos.y = constrain(player.pos.x, FRAME_H, VIEWH - FRAME_H);
+
+    console.log(world.gravity.y);
+  }
+
+  function drawDevMenu() {
+    rectMode(CENTER, CENTER);
+    fill(devMenu.colour);
+    rect(devMenu.x, devMenu.y, devMenu.w, devMenu.h);
+    textSize(12);
+    fill("white");
+    text(devMenu.title, devMenu.x * 0.35, devMenu.y * 0.5);
+    text(devMenu.text, devMenu.x * 0.35, devMenu.y * 0.7);
+    text("freeroam: press 1", devMenu.x * 0.35, devMenu.y * 0.9);
+    text("Press 'Escape' to exit menu", devMenu.x * 0.35, devMenu.y);
+  }
 }

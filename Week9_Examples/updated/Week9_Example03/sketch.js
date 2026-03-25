@@ -87,15 +87,15 @@ let freeRoam = false;
 
 function preload() {
   // --- IMAGES ---
-  playerImg = loadImage("../../../assets/foxSpriteSheet.png");
-  bgImg = loadImage("../../../assets/combinedBackground.png");
-  groundImg = loadImage("../../../assets/groundTile.png");
-  groundDeepImg = loadImage("../../../assets/groundTileDeep.png");
+  playerImg = loadImage("../../assets/foxSpriteSheet.png");
+  bgImg = loadImage("../../assets/combinedBackground.png");
+  groundImg = loadImage("../../assets/groundTile.png");
+  groundDeepImg = loadImage("../../assets/groundTileDeep.png");
 
   // --- SOUND ---
   if (typeof loadSound === "function") {
-    jumpSfx = loadSound("../../../assets/sfx/jump.wav");
-    musicSfx = loadSound("../../../assets/sfx/music.wav");
+    jumpSfx = loadSound("../../assets/sfx/jump.wav");
+    musicSfx = loadSound("../../assets/sfx/music.wav");
   }
 }
 
